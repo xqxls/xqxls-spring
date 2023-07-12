@@ -72,7 +72,7 @@ public class ApiTest {
 
     @Test
     public void test_url() throws IOException {
-        Resource resource = resourceLoader.getResource("https://github.com/fuzhengwei/small-spring/important.properties");
+        Resource resource = resourceLoader.getResource("https://github.com/xqxls/shopping-mall/blob/main/shopping-mall-admin/src/main/resources/application-dev.yml");
         InputStream inputStream = resource.getInputStream();
         String content = IoUtil.readUtf8(inputStream);
         System.out.println(content);
