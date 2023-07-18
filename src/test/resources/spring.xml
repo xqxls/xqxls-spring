@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
 
-    <bean class="cn.xqxls.springframework.test.event.ContextRefreshedEventListener"/>
+    <bean id="userService" class="cn.xqxls.springframework.test.bean.UserService"/>
 
-    <bean class="cn.xqxls.springframework.test.event.CustomEventListener"/>
+    <bean class="cn.xqxls.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
 
-    <bean class="cn.xqxls.springframework.test.event.ContextClosedEventListener"/>
+    <bean id="beforeAdvice" class="cn.xqxls.springframework.test.bean.UserServiceBeforeAdvice"/>
+
+    <bean id="methodInterceptor" class="cn.xqxls.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
+
+    <bean id="pointcutAdvisor" class="cn.xqxls.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* cn.xqxls.springframework.test.bean.IUserService.*(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
 
 </beans>
