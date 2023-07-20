@@ -1,5 +1,7 @@
 package cn.xqxls.springframework.aop;
 
+import cn.xqxls.springframework.util.ClassUtils;
+
 /**
  * @author xqxls
  * @create 2023-07-18 10:06
@@ -21,7 +23,9 @@ public class TargetSource {
      * @return the type of targets returned by this {@link TargetSource}
      */
     public Class<?>[] getTargetClass(){
-        return this.target.getClass().getInterfaces();
+        Class<?> clazz = this.target.getClass();
+        clazz = ClassUtils.isCglibProxyClass(clazz) ? clazz.getSuperclass() : clazz;
+        return clazz.getInterfaces();
     }
 
     /**
