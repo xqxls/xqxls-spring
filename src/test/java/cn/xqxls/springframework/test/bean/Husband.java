@@ -1,10 +1,5 @@
 package cn.xqxls.springframework.test.bean;
 
-/**
- * @author xqxls
- * @create 2023-07-21 14:34
- * @Description
- */
 public class Husband {
 
     private Wife wife;

@@ -1,10 +1,5 @@
 package cn.xqxls.springframework.test.bean;
 
-/**
- * @author xqxls
- * @create 2023-07-21 14:35
- * @Description
- */
 public class Wife {
 
     private Husband husband;
@@ -29,4 +24,5 @@ public class Wife {
     public void setMother(IMother mother) {
         this.mother = mother;
     }
+
 }

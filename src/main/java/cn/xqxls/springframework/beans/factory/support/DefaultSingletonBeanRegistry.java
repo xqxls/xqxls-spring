@@ -6,6 +6,7 @@ import cn.xqxls.springframework.beans.factory.ObjectFactory;
 import cn.xqxls.springframework.beans.factory.config.SingletonBeanRegistry;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,17 +42,17 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
      */
     private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<String, ObjectFactory<?>>();
 
-    private final Map<String, DisposableBean> disposableBeans = new HashMap<>();
+    private final Map<String, DisposableBean> disposableBeans = new LinkedHashMap<>();
 
     @Override
     public Object getSingleton(String beanName) {
         Object singletonObject = singletonObjects.get(beanName);
-        if(null == singletonObject){
+        if (null == singletonObject) {
             singletonObject = earlySingletonObjects.get(beanName);
             // 判断二级缓存中是否有对象，这个对象就是代理对象，因为只有代理对象才会放到三级缓存中
-            if(null == singletonObject){
+            if (null == singletonObject) {
                 ObjectFactory<?> singletonFactory = singletonFactories.get(beanName);
-                if(singletonFactory != null){
+                if (singletonFactory != null) {
                     singletonObject = singletonFactory.getObject();
                     // 把三级缓存中的代理对象中的真实对象获取出来，放入二级缓存中
                     earlySingletonObjects.put(beanName, singletonObject);
@@ -60,10 +61,6 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
             }
         }
         return singletonObject;
-    }
-
-    protected void addSingleton(String beanName, Object singletonObject) {
-        singletonObjects.put(beanName, singletonObject);
     }
 
     @Override

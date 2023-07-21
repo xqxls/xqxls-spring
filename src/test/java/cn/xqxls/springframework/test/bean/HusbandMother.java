@@ -1,13 +1,12 @@
 package cn.xqxls.springframework.test.bean;
 
+
 import cn.xqxls.springframework.beans.factory.FactoryBean;
 
 import java.lang.reflect.Proxy;
 
 /**
- * @author xqxls
- * @create 2023-07-21 14:36
- * @Description
+ * 代理类
  */
 public class HusbandMother implements FactoryBean<IMother> {
 

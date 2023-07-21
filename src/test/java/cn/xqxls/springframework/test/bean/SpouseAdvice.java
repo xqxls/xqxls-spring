@@ -1,14 +1,10 @@
 package cn.xqxls.springframework.test.bean;
 
+
 import cn.xqxls.springframework.aop.MethodBeforeAdvice;
 
 import java.lang.reflect.Method;
 
-/**
- * @author xqxls
- * @create 2023-07-21 14:36
- * @Description
- */
 public class SpouseAdvice implements MethodBeforeAdvice {
 
     @Override
