@@ -1,7 +1,9 @@
 package cn.xqxls.springframework.beans.factory.config;
 
 import cn.xqxls.springframework.beans.factory.HierarchicalBeanFactory;
+import cn.xqxls.springframework.core.convert.ConversionService;
 import cn.xqxls.springframework.util.StringValueResolver;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author xqxls
@@ -35,5 +37,14 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
      * @since 3.0
      */
     String resolveEmbeddedValue(String value);
+
+    void setConversionService(ConversionService conversionService);
+
+    /**
+     * Return the associated ConversionService, if any.
+     * @since 3.0
+     */
+    @Nullable
+    ConversionService getConversionService();
 
 }

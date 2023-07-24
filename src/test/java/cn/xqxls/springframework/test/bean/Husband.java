@@ -1,19 +1,36 @@
 package cn.xqxls.springframework.test.bean;
 
+
+import java.time.LocalDate;
+
 public class Husband {
 
-    private Wife wife;
+    private String wifiName;
 
-    public String queryWife(){
-        return "Husband.wife";
+    private LocalDate marriageDate;
+
+    public String getWifiName() {
+        return wifiName;
     }
 
-    public Wife getWife() {
-        return wife;
+    public void setWifiName(String wifiName) {
+        this.wifiName = wifiName;
     }
 
-    public void setWife(Wife wife) {
-        this.wife = wife;
+    public LocalDate getMarriageDate() {
+        return marriageDate;
+    }
+
+    public void setMarriageDate(LocalDate marriageLocalDate) {
+        this.marriageDate = marriageLocalDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Husband{" +
+                "wifiName='" + wifiName + '\'' +
+                ", marriageLocalDate=" + marriageDate +
+                '}';
     }
 
 }
