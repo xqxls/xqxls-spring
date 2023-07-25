@@ -1,12 +1,14 @@
 package cn.xqxls.springframework.beans.factory.annotation;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.TypeUtil;
 import cn.xqxls.springframework.beans.BeansException;
 import cn.xqxls.springframework.beans.PropertyValues;
 import cn.xqxls.springframework.beans.factory.BeanFactory;
 import cn.xqxls.springframework.beans.factory.BeanFactoryAware;
 import cn.xqxls.springframework.beans.factory.ConfigurableListableBeanFactory;
 import cn.xqxls.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
+import cn.xqxls.springframework.core.convert.ConversionService;
 import cn.xqxls.springframework.util.ClassUtils;
 
 import java.lang.reflect.Field;
@@ -36,8 +38,18 @@ public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareB
         for (Field field : declaredFields) {
             Value valueAnnotation = field.getAnnotation(Value.class);
             if (null != valueAnnotation) {
-                String value = valueAnnotation.value();
-                value = beanFactory.resolveEmbeddedValue(value);
+                Object value = valueAnnotation.value();
+                value = beanFactory.resolveEmbeddedValue((String) value);
+
+                // 类型转换
+                Class<?> sourceType = value.getClass();
+                Class<?> targetType = (Class<?>) TypeUtil.getType(field);
+                ConversionService conversionService = beanFactory.getConversionService();
+                if (conversionService != null) {
+                    if (conversionService.canConvert(sourceType, targetType)) {
+                        value = conversionService.convert(value, targetType);
+                    }
+                }
                 BeanUtil.setFieldValue(bean, field.getName(), value);
             }
         }
